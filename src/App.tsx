@@ -19,6 +19,10 @@ function App() {
     setTitle("");
   }
 
+  function handleDeleteTask(id: string) {
+    setTasks((prev) => prev.filter((task) => !Object.is(task.id, id)));
+  }
+
   return (
     <div>
       <h1>Lista de afazeres</h1>
@@ -34,7 +38,7 @@ function App() {
 
       <ul>
         {tasks.map((task) => (
-          <TaskItem key={task.id} task={task} />
+          <TaskItem key={task.id} task={task} onDelete={handleDeleteTask} />
         ))}
       </ul>
     </div>
