@@ -32,6 +32,14 @@ function App() {
     setTasks((prev) => [...prev, newTask]);
   }
 
+  function handleEditTask(id: string, newTitle: string) {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, title: newTitle } : task,
+      ),
+    );
+  }
+
   function handleRequestDelete(task: Task) {
     setTaskToDelete(task);
   }
@@ -66,6 +74,7 @@ function App() {
         tasks={tasks}
         onDelete={handleRequestDelete}
         onToggle={handleToggleTask}
+        onEdit={handleEditTask}
       />
       {taskToDelete && (
         <ConfirmDialog
