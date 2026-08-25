@@ -13,9 +13,15 @@ function TaskItem({ task, onDelete, onToggle }: TaskItemProps) {
         type="checkbox"
         checked={task.done}
         onChange={() => onToggle(task.id)}
+        aria-label={`Marcar "${task.title}" como concluída`}
       />
       {task.title} {new Date(task.createdAt).toLocaleString("pt-BR")}
-      <button onClick={() => onDelete(task)}>Excluir</button>
+      <button
+        onClick={() => onDelete(task)}
+        aria-label={`Excluir tarefa "${task.title}"`}
+      >
+        Excluir
+      </button>
     </li>
   );
 }
