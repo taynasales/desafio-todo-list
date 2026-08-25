@@ -29,6 +29,10 @@ function TaskItem({ task, onDelete, onToggle, onEdit }: TaskItemProps) {
           type="text"
           value={draftTitle}
           onChange={(event) => setDraftTitle(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") handleSave();
+            if (event.key === "Escape") handleCancel();
+          }}
           aria-label="Editar título da tarefa"
         />
         <button onClick={handleCancel}>Cancelar</button>
