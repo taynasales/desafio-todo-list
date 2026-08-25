@@ -1,12 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Task } from "./types";
-import ConfirmDialog from "./components/ConfirmDialog";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
+import ConfirmDialog from "./components/ConfirmDialog";
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    try {
+      const stored = localStorage.getItem("tasks");
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      console.warn("Não foi possível carregar as tarefas salvas.");
+      return [];
+    }
+  });
+
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   function handleAddTask(title: string) {
     const newTask: Task = {
