@@ -62,14 +62,20 @@ function App() {
       </form>
 
       <ul>
-        {tasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onDelete={handleRequestDelete}
-            onToggle={handleToggleTask}
-          />
-        ))}
+        {tasks.length === 0 ? (
+          <p>Nenhuma tarefa por aqui ainda. Que tal criar a primeira?</p>
+        ) : (
+          <ul>
+            {tasks.map((task) => (
+              <TaskItem
+                key={task.id}
+                task={task}
+                onDelete={handleRequestDelete}
+                onToggle={handleToggleTask}
+              />
+            ))}
+          </ul>
+        )}
       </ul>
       {taskToDelete && (
         <ConfirmDialog
