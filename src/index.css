@@ -1,21 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
 
 :root {
-  --brand: #ff6b00;
-  --brand-pressed: #e85f00;
-  --brand-text: #8a4a1c;
-  --on-brand: #3d1f08;
+  --brand: #ff630b;
+  --brand-pressed: #e9560a;
+  --brand-text: #833d11;
+  --on-brand: #49240a;
+
+  --ink: #323b41;
+  --ink-soft: #747a7f;
+  --border: #e4e7e9;
+  --border-strong: #dae3e5;
+  --surface: #ffffff;
+  --surface-alt: #f1f6f7;
+
+  --bg: #f6f8f8;
+  --bg-glow: #fff0df;
+  --danger: #8e1702;
+  --danger-hover: #7a0000;
+  --danger-light: #fcebe8;
 
   --font-sans: "Sora", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
-
-  --ink: #2c3238;
-  --ink-soft: #6e767d;
-  --border: #e6e9eb;
-  --surface: #ffffff;
-
-  --bg: #f7f8f9;
-  --bg-glow: #fff3e4;
 }
 
 * {
@@ -27,7 +32,11 @@
 body {
   font-family: var(--font-sans);
   color: var(--ink);
-  background: linear-gradient(to bottom, var(--bg-glow), var(--bg) 320px);
+  background: radial-gradient(
+    120% 55% at 50% -8%,
+    var(--bg-glow) 0%,
+    var(--bg) 62%
+  );
   min-height: 100vh;
   padding: 32px 22px 40px;
   -webkit-font-smoothing: antialiased;
