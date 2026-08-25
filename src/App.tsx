@@ -1,8 +1,8 @@
 import { useState } from "react";
 import type { Task } from "./types";
-import TaskItem from "./components/TaskItem";
 import ConfirmDialog from "./components/ConfirmDialog";
 import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -49,22 +49,11 @@ function App() {
     <div>
       <h1>Lista de afazeres</h1>
       <TaskForm onAddTask={handleAddTask} />
-      <ul>
-        {tasks.length === 0 ? (
-          <p>Nenhuma tarefa por aqui ainda. Que tal criar a primeira?</p>
-        ) : (
-          <ul>
-            {tasks.map((task) => (
-              <TaskItem
-                key={task.id}
-                task={task}
-                onDelete={handleRequestDelete}
-                onToggle={handleToggleTask}
-              />
-            ))}
-          </ul>
-        )}
-      </ul>
+      <TaskList
+        tasks={tasks}
+        onDelete={handleRequestDelete}
+        onToggle={handleToggleTask}
+      />
       {taskToDelete && (
         <ConfirmDialog
           taskTitle={taskToDelete.title}
