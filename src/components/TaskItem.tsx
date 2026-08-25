@@ -2,14 +2,14 @@ import type { Task } from "../types";
 
 interface TaskItemProps {
   task: Task;
-  onDelete: (id: string) => void;
+  onDelete: (task: Task) => void;
 }
 
 function TaskItem({ task, onDelete }: TaskItemProps) {
   return (
     <li>
       {task.title} {new Date(task.createdAt).toLocaleString("pt-BR")}
-      <button onClick={() => onDelete(task.id)}>Excluir</button>
+      <button onClick={() => onDelete(task)}>Excluir</button>
     </li>
   );
 }
