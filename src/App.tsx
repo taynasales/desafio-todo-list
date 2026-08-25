@@ -2,24 +2,21 @@ import { useState } from "react";
 import type { Task } from "./types";
 import TaskItem from "./components/TaskItem";
 import ConfirmDialog from "./components/ConfirmDialog";
+import TaskForm from "./components/TaskForm";
 
 function App() {
-  const [title, setTitle] = useState("");
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
 
-  function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
-
+  function handleAddTask(title: string) {
     const newTask: Task = {
       id: crypto.randomUUID(),
-      title: title,
+      title,
       createdAt: Date.now(),
       done: false,
     };
 
-    setTasks([...tasks, newTask]);
-    setTitle("");
+    setTasks((prev) => [...prev, newTask]);
   }
 
   function handleRequestDelete(task: Task) {
@@ -51,16 +48,7 @@ function App() {
   return (
     <div>
       <h1>Lista de afazeres</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Ex.: Comprar ração para os cachorros"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-        />
-        <button type="submit">Adicionar</button>
-      </form>
-
+      <TaskForm onAddTask={handleAddTask} />
       <ul>
         {tasks.length === 0 ? (
           <p>Nenhuma tarefa por aqui ainda. Que tal criar a primeira?</p>
