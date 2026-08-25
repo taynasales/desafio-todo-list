@@ -15,14 +15,11 @@ function App() {
       id: crypto.randomUUID(),
       title: title,
       createdAt: Date.now(),
+      done: false,
     };
 
     setTasks([...tasks, newTask]);
     setTitle("");
-  }
-
-  function handleDeleteTask(id: string) {
-    setTasks((prev) => prev.filter((task) => !Object.is(task.id, id)));
   }
 
   function handleRequestDelete(task: Task) {
@@ -43,6 +40,14 @@ function App() {
     setTaskToDelete(null);
   }
 
+  function handleToggleTask(id: string) {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, done: task.done ? false : true } : task,
+      ),
+    );
+  }
+
   return (
     <div>
       <h1>Lista de afazeres</h1>
@@ -58,7 +63,12 @@ function App() {
 
       <ul>
         {tasks.map((task) => (
-          <TaskItem key={task.id} task={task} onDelete={handleRequestDelete} />
+          <TaskItem
+            key={task.id}
+            task={task}
+            onDelete={handleRequestDelete}
+            onToggle={handleToggleTask}
+          />
         ))}
       </ul>
       {taskToDelete && (
