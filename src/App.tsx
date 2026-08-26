@@ -77,13 +77,21 @@ function App() {
           as que já saíram do caminho
         </p>
       </header>
-      <TaskForm onAddTask={handleAddTask} />
-      <TaskList
-        tasks={tasks}
-        onDelete={handleRequestDelete}
-        onToggle={handleToggleTask}
-        onEdit={handleEditTask}
-      />
+
+      <div className={styles.cols}>
+        <aside className={styles.side}>
+          <TaskForm onAddTask={handleAddTask} />
+        </aside>
+        <main className={styles.main}>
+          <TaskList
+            tasks={tasks}
+            onDelete={handleRequestDelete}
+            onToggle={handleToggleTask}
+            onEdit={handleEditTask}
+          />
+        </main>
+      </div>
+
       {taskToDelete && (
         <ConfirmDialog
           taskTitle={taskToDelete.title}
