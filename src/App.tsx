@@ -30,7 +30,7 @@ function App() {
       done: false,
     };
 
-    setTasks((prev) => [...prev, newTask]);
+    setTasks((prev) => [newTask, ...prev]);
   }
 
   function handleEditTask(id: string, newTitle: string) {
