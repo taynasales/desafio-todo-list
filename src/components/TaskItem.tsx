@@ -12,6 +12,7 @@ interface TaskItemProps {
 function TaskItem({ task, onDelete, onToggle, onEdit }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [draftTitle, setDraftTitle] = useState(task.title);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   function handleSave() {
     onEdit(task.id, draftTitle);
@@ -52,9 +53,24 @@ function TaskItem({ task, onDelete, onToggle, onEdit }: TaskItemProps) {
         aria-label={`Marcar "${task.title}" como concluída`}
       />
 
-      <span className={`${styles.body} ${task.done ? styles.bodyDone : ""}`}>
-        {task.title}
-      </span>
+      <div className={styles.bodyWrap}>
+        <span
+          className={`${styles.body} ${task.done ? styles.bodyDone : ""} ${
+            isExpanded ? "" : styles.bodyClamped
+          }`}
+        >
+          {task.title}
+        </span>
+        {task.title.length > 99 && (
+          <button
+            type="button"
+            onClick={() => setIsExpanded(isExpanded ? false : true)}
+            className={styles.more}
+          >
+            {isExpanded ? "mostrar menos" : "mostrar tudo"}
+          </button>
+        )}
+      </div>
 
       <span className={styles.date}>
         {new Date(task.createdAt).toLocaleString("pt-BR", {

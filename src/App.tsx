@@ -48,7 +48,7 @@ function App() {
   function handleConfirmDelete() {
     if (taskToDelete) {
       setTasks((prev) =>
-        prev.filter((task) => !Object.is(task.id, taskToDelete.id)),
+        prev.filter((task) => Object.is(task.id, taskToDelete.id) === false),
       );
     }
 

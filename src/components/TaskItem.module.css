@@ -62,11 +62,37 @@
 }
 
 .body {
-  grid-area: body;
   min-width: 0;
   font-size: 14px;
   line-height: 1.45;
   overflow-wrap: anywhere;
+}
+
+.bodyWrap {
+  grid-area: body;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bodyClamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.more {
+  font-family: inherit;
+  color: var(--brand-text);
+  font-size: 12px;
+  font-style: italic;
+  background: none;
+  border: none;
+  padding: 0;
+  align-self: start;
+  cursor: pointer;
 }
 
 .bodyDone {
