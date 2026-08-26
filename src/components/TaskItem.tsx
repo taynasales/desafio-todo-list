@@ -26,19 +26,33 @@ function TaskItem({ task, onDelete, onToggle, onEdit }: TaskItemProps) {
 
   if (isEditing) {
     return (
-      <li>
+      <li className={styles.editForm}>
         <input
           type="text"
+          maxLength={180}
           value={draftTitle}
           onChange={(event) => setDraftTitle(event.target.value)}
           onKeyDown={(event) => {
             if (event.key === "Enter") handleSave();
             if (event.key === "Escape") handleCancel();
           }}
+          className={styles.editInput}
           aria-label="Editar título da tarefa"
         />
-        <button onClick={handleCancel}>Cancelar</button>
-        <button onClick={handleSave}>Salvar</button>
+        <div className={styles.editActions}>
+          <button
+            onClick={handleCancel}
+            className={`${styles.editButton} ${styles.editCancel}`}
+          >
+            Cancelar
+          </button>
+          <button
+            onClick={handleSave}
+            className={`${styles.editButton} ${styles.editSave}`}
+          >
+            Salvar
+          </button>
+        </div>
       </li>
     );
   }

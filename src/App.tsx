@@ -41,6 +41,14 @@ function App() {
     );
   }
 
+  function handleToggleTask(id: string) {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, done: task.done ? false : true } : task,
+      ),
+    );
+  }
+
   function handleRequestDelete(task: Task) {
     setTaskToDelete(task);
   }
@@ -57,14 +65,6 @@ function App() {
 
   function handleCancelDelete() {
     setTaskToDelete(null);
-  }
-
-  function handleToggleTask(id: string) {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id ? { ...task, done: task.done ? false : true } : task,
-      ),
-    );
   }
 
   return (
