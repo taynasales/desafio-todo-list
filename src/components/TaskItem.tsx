@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Task } from "../types";
+import styles from "./TaskItem.module.css";
 
 interface TaskItemProps {
   task: Task;
@@ -42,21 +43,45 @@ function TaskItem({ task, onDelete, onToggle, onEdit }: TaskItemProps) {
   }
 
   return (
-    <li>
+    <li className={styles.item}>
       <input
         type="checkbox"
         checked={task.done}
         onChange={() => onToggle(task.id)}
+        className={styles.check}
         aria-label={`Marcar "${task.title}" como concluída`}
       />
-      {task.title} {new Date(task.createdAt).toLocaleString("pt-BR")}
-      <button onClick={() => setIsEditing(true)}>Editar</button>
-      <button
-        onClick={() => onDelete(task)}
-        aria-label={`Excluir tarefa "${task.title}"`}
-      >
-        Excluir
-      </button>
+
+      <span className={`${styles.body} ${task.done ? styles.bodyDone : ""}`}>
+        {task.title}
+      </span>
+
+      <span className={styles.date}>
+        {new Date(task.createdAt).toLocaleString("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      </span>
+
+      <div className={styles.actions}>
+        <button
+          onClick={() => setIsEditing(true)}
+          className={styles.action}
+          aria-label={`Editar tarefa "${task.title}"`}
+        >
+          ✎
+        </button>
+        <button
+          onClick={() => onDelete(task)}
+          className={`${styles.action} ${styles.actionDanger}`}
+          aria-label={`Excluir tarefa "${task.title}"`}
+        >
+          ✕
+        </button>
+      </div>
     </li>
   );
 }

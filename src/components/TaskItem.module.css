@@ -1,0 +1,130 @@
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "check body actions"
+    ".     date actions";
+  column-gap: 10px;
+  row-gap: 4px;
+  align-items: start;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.item:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 10px 26px -20px rgb(50 59 65 / 0.45);
+}
+
+.check {
+  grid-area: check;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  cursor: pointer;
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  transition:
+    background 140ms ease,
+    border-color 140ms ease;
+}
+
+.check::after {
+  content: "✓";
+  font-size: 12px;
+  color: var(--on-brand);
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+
+.check:checked {
+  background: var(--brand);
+  border-color: var(--brand);
+}
+
+.check:checked::after {
+  opacity: 1;
+}
+
+.check:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(255 99 11 / 0.18);
+}
+
+.body {
+  grid-area: body;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.bodyDone {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+}
+
+.date {
+  grid-area: date;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  gap: 6px;
+}
+
+.action {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition:
+    background 140ms ease,
+    color 140ms ease,
+    border-color 140ms ease;
+}
+
+.action:hover {
+  background: var(--surface-alt);
+  color: var(--ink);
+}
+
+.actionDanger:hover {
+  background: var(--danger-light);
+  border-color: var(--danger-light);
+  color: var(--danger);
+}
+
+@media (min-width: 620px) {
+  .item {
+    grid-template-columns: auto 1fr auto auto;
+    grid-template-areas: "check body date actions";
+    column-gap: 14px;
+    align-items: center;
+  }
+
+  .date {
+    justify-self: end;
+    text-align: right;
+    min-width: 122px;
+  }
+}
