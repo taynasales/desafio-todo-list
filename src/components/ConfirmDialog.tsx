@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import styles from "./ConfirmDialog.module.css";
 
 interface ConfirmDialogProps {
   taskTitle: string;
@@ -6,7 +7,7 @@ interface ConfirmDialogProps {
   onCancel: () => void;
 }
 
-function ConfirmDialog({ taskTitle, onConfirm, onCancel }: ConfirmDialogProps) {
+function ConfirmDialog({ onConfirm, onCancel }: ConfirmDialogProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -14,11 +15,23 @@ function ConfirmDialog({ taskTitle, onConfirm, onCancel }: ConfirmDialogProps) {
   }, []);
 
   return (
-    <dialog ref={dialogRef} onClose={onCancel}>
-      <h2>Excluir tarefa?</h2>
-      <p>A tarefa "{taskTitle}" será removida permanentemente.</p>
-      <button onClick={onCancel}>Cancelar</button>
-      <button onClick={onConfirm}>Excluir</button>
+    <dialog ref={dialogRef} onClose={onCancel} className={styles.dialog}>
+      <h2 className={styles.title}>Excluir tarefa?</h2>
+      <p className={styles.text}>A tarefa será removida permanentemente.</p>
+      <div className={styles.actions}>
+        <button
+          onClick={onCancel}
+          className={`${styles.button} ${styles.cancel}`}
+        >
+          Cancelar
+        </button>
+        <button
+          onClick={onConfirm}
+          className={`${styles.button} ${styles.confirm}`}
+        >
+          Excluir
+        </button>
+      </div>
     </dialog>
   );
 }
