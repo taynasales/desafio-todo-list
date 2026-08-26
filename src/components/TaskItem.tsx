@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Task } from "../types";
 import styles from "./TaskItem.module.css";
 
@@ -13,6 +13,14 @@ function TaskItem({ task, onDelete, onToggle, onEdit }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [draftTitle, setDraftTitle] = useState(task.title);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isEditing) {
+      inputRef.current?.focus();
+    }
+  }, [isEditing]);
 
   function handleSave() {
     onEdit(task.id, draftTitle);
@@ -29,6 +37,7 @@ function TaskItem({ task, onDelete, onToggle, onEdit }: TaskItemProps) {
       <li className={styles.editForm}>
         <input
           type="text"
+          ref={inputRef}
           maxLength={180}
           value={draftTitle}
           onChange={(event) => setDraftTitle(event.target.value)}
