@@ -1,5 +1,6 @@
 import type { Task } from "../types";
 import TaskItem from "./TaskItem";
+import styles from "./TaskList.module.css";
 
 interface TaskListProps {
   tasks: Task[];
@@ -9,22 +10,41 @@ interface TaskListProps {
 }
 
 function TaskList({ tasks, onDelete, onToggle, onEdit }: TaskListProps) {
-  if (tasks.length === 0) {
-    return <p>Nenhuma tarefa por aqui ainda. Que tal criar a primeira?</p>;
-  }
+  // if (tasks.length === 0) {
+  //   return <p>Nenhuma tarefa por aqui ainda. Que tal criar a primeira?</p>;
+  // }
+  const doneCount = tasks.filter((task) => task.done).length;
 
   return (
-    <ul>
-      {tasks.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          onDelete={onDelete}
-          onToggle={onToggle}
-          onEdit={onEdit}
-        />
-      ))}
-    </ul>
+    <section>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Suas tarefas</h2>
+        {tasks.length > 0 && (
+          <span className={styles.count}>
+            {doneCount} de {tasks.length}{" "}
+            {tasks.length === 1 ? "concluída" : "concluídas"}
+          </span>
+        )}
+      </div>
+      {tasks.length === 0 ? (
+        <div className={styles.empty}>
+          <p className={styles.emptyTitle}>Nenhuma tarefa por aqui</p>
+          <p className={styles.emptyText}>Que tal criar a primeira?</p>
+        </div>
+      ) : (
+        <ul className={styles.list}>
+          {tasks.map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              onDelete={onDelete}
+              onToggle={onToggle}
+              onEdit={onEdit}
+            />
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 
