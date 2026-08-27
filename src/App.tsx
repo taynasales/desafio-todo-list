@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import type { Task } from "./types";
-import TaskForm from "./components/TaskForm";
-import TaskList from "./components/TaskList";
-import ConfirmDialog from "./components/ConfirmDialog";
+import TaskForm from "./components/tasks/TaskForm";
+import TaskList from "./components/tasks/TaskList";
+import ConfirmDialog from "./components/ui/ConfirmDialog";
 import styles from "./App.module.css";
 
 function App() {

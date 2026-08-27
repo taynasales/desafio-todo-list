@@ -1,4 +1,4 @@
-import type { Task } from "../types";
+import type { Task } from "../../types";
 import TaskItem from "./TaskItem";
 import styles from "./TaskList.module.css";
 
