@@ -8,7 +8,7 @@
 
 ```bash
 # clone o repositório
-git clone https://github.com/seuusuario/desafio-todo-list.git
+git clone https://github.com/taynasales/desafio-todo-list.git
 cd desafio-todo-list
 
 # instale as dependências
@@ -17,3 +17,5 @@ npm install
 # rode em modo de desenvolvimento
 npm run dev
 ```
+
+A aplicação ficará disponível em `http://localhost:5173`.
