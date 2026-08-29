@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { Task } from "../types";
+import type { Task } from "../../types";
 import styles from "./TaskItem.module.css";
 
 interface TaskItemProps {
@@ -13,14 +13,29 @@ function TaskItem({ task, onDelete, onToggle, onEdit }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [draftTitle, setDraftTitle] = useState(task.title);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isTruncated, setIsTruncated] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const titleRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (isEditing) {
       inputRef.current?.focus();
     }
   }, [isEditing]);
+
+  useEffect(() => {
+    const element = titleRef.current;
+    if (!element) return;
+
+    const updateTruncation = () => {
+      setIsTruncated(element.scrollHeight > element.clientHeight + 1);
+    };
+
+    updateTruncation();
+    window.addEventListener("resize", updateTruncation);
+    return () => window.removeEventListener("resize", updateTruncation);
+  }, [task.title]);
 
   function handleSave() {
     onEdit(task.id, draftTitle);
@@ -76,15 +91,16 @@ function TaskItem({ task, onDelete, onToggle, onEdit }: TaskItemProps) {
         aria-label={`Marcar "${task.title}" como concluída`}
       />
 
-      <div className={styles.bodyWrap}>
+      <div className={styles.titleWrap}>
         <span
-          className={`${styles.body} ${task.done ? styles.bodyDone : ""} ${
-            isExpanded ? "" : styles.bodyClamped
+          ref={titleRef}
+          className={`${styles.title} ${task.done ? styles.titleDone : ""} ${
+            isExpanded ? "" : styles.titleClamped
           }`}
         >
           {task.title}
         </span>
-        {task.title.length > 99 && (
+        {(isTruncated || isExpanded) && (
           <button
             type="button"
             onClick={() => setIsExpanded(isExpanded ? false : true)}
