@@ -22,9 +22,16 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
+  function createId(): string {
+    if (crypto.randomUUID) {
+      return crypto.randomUUID();
+    }
+    return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  }
+
   function handleAddTask(title: string) {
     const newTask: Task = {
-      id: crypto.randomUUID(),
+      id: createId(),
       title,
       createdAt: Date.now(),
       done: false,
