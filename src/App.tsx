@@ -5,6 +5,13 @@ import TaskList from "./components/tasks/TaskList";
 import ConfirmDialog from "./components/ui/ConfirmDialog";
 import styles from "./App.module.css";
 
+function createId(): string {
+  if (crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
 function App() {
   const [tasks, setTasks] = useState<Task[]>(() => {
     try {
@@ -19,20 +26,17 @@ function App() {
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  function createId(): string {
-    if (crypto.randomUUID) {
-      return crypto.randomUUID();
+    try {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    } catch {
+      console.warn("Não foi possível salvar as tarefas.");
     }
-    return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-  }
+  }, [tasks]);
 
   function handleAddTask(title: string) {
     const newTask: Task = {
       id: createId(),
-      title,
+      title: title.trim(),
       createdAt: Date.now(),
       done: false,
     };
@@ -51,7 +55,7 @@ function App() {
   function handleToggleTask(id: string) {
     setTasks((prev) =>
       prev.map((task) =>
-        task.id === id ? { ...task, done: task.done ? false : true } : task,
+        task.id === id ? { ...task, done: !task.done } : task,
       ),
     );
   }
@@ -101,7 +105,6 @@ function App() {
 
       {taskToDelete && (
         <ConfirmDialog
-          taskTitle={taskToDelete.title}
           onConfirm={handleConfirmDelete}
           onCancel={handleCancelDelete}
         />

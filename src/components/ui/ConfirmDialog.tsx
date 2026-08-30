@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import styles from "./ConfirmDialog.module.css";
 
 interface ConfirmDialogProps {
-  taskTitle: string;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -20,12 +19,14 @@ function ConfirmDialog({ onConfirm, onCancel }: ConfirmDialogProps) {
       <p className={styles.text}>A tarefa será removida permanentemente.</p>
       <div className={styles.actions}>
         <button
+          type="button"
           onClick={onCancel}
           className={`${styles.button} ${styles.cancel}`}
         >
           Cancelar
         </button>
         <button
+          type="button"
           onClick={onConfirm}
           className={`${styles.button} ${styles.confirm}`}
         >

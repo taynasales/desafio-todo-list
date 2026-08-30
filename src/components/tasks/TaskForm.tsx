@@ -10,7 +10,7 @@ function TaskForm({ onAddTask }: TaskFormProps) {
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-
+    if (title.trim() === "") return;
     onAddTask(title);
     setTitle("");
   }

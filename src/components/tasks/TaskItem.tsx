@@ -38,7 +38,12 @@ function TaskItem({ task, onDelete, onToggle, onEdit }: TaskItemProps) {
   }, [task.title]);
 
   function handleSave() {
-    onEdit(task.id, draftTitle);
+    if (draftTitle.trim() === "" || draftTitle.trim() === task.title) {
+      setIsEditing(false);
+      return;
+    }
+
+    onEdit(task.id, draftTitle.trim());
     setIsEditing(false);
   }
 
@@ -103,7 +108,7 @@ function TaskItem({ task, onDelete, onToggle, onEdit }: TaskItemProps) {
         {(isTruncated || isExpanded) && (
           <button
             type="button"
-            onClick={() => setIsExpanded(isExpanded ? false : true)}
+            onClick={() => setIsExpanded(!isExpanded)}
             className={styles.more}
           >
             {isExpanded ? "mostrar menos" : "mostrar tudo"}
