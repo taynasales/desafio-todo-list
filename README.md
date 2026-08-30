@@ -1,6 +1,8 @@
 # Lista de afazeres
 
-![Tela principal da lista de afazeres](./docs/preview.png)
+| Desktop                        | Mobile                       |
+| ------------------------------ | ---------------------------- |
+| ![Desktop](./docs/desktop.png) | ![Mobile](./docs/mobile.png) |
 
 ## Como rodar
 
