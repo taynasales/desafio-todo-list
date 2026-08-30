@@ -3,6 +3,7 @@ import type { Task } from "./types";
 import TaskForm from "./components/tasks/TaskForm";
 import TaskList from "./components/tasks/TaskList";
 import ConfirmDialog from "./components/ui/ConfirmDialog";
+import Toast from "./components/ui/Toast";
 import styles from "./App.module.css";
 
 function createId(): string {
@@ -24,6 +25,7 @@ function App() {
   });
 
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -42,6 +44,7 @@ function App() {
     };
 
     setTasks((prev) => [newTask, ...prev]);
+    setToastMessage("Tarefa adicionada");
   }
 
   function handleEditTask(id: string, newTitle: string) {
@@ -50,6 +53,7 @@ function App() {
         task.id === id ? { ...task, title: newTitle } : task,
       ),
     );
+    setToastMessage("Tarefa atualizada");
   }
 
   function handleToggleTask(id: string) {
@@ -69,6 +73,7 @@ function App() {
       setTasks((prev) =>
         prev.filter((task) => Object.is(task.id, taskToDelete.id) === false),
       );
+      setToastMessage("Tarefa excluída");
     }
 
     setTaskToDelete(null);
@@ -108,6 +113,10 @@ function App() {
           onConfirm={handleConfirmDelete}
           onCancel={handleCancelDelete}
         />
+      )}
+
+      {toastMessage && (
+        <Toast message={toastMessage} onDismiss={() => setToastMessage(null)} />
       )}
     </div>
   );
