@@ -1,4 +1,4 @@
-# Lista de afazeres
+# Lista de tarefas
 
 | Desktop                        | Mobile                       |
 | ------------------------------ | ---------------------------- |

@@ -87,7 +87,7 @@ function App() {
     <div className={styles.shell}>
       <header className={styles.header}>
         <span className={styles.eyebrow}>Organização pessoal</span>
-        <h1 className={styles.title}>Lista de afazeres</h1>
+        <h1 className={styles.title}>Lista de tarefas</h1>
         <p className={styles.description}>
           Anote suas tarefas, acompanhe há quanto tempo estão na lista e apague
           as que já saíram do caminho
